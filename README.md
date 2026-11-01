@@ -1,4 +1,4 @@
-# LiteAPI travel skill
+# Nuitee Connect - LiteAPI travel skill
 
 Agent Skill that teaches Cursor, Claude Code, and other coding agents how to build a travel booking experience on the [LiteAPI](https://docs.liteapi.travel) (Nuitee Connect) REST API.
 
