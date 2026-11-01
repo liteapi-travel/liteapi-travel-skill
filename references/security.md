@@ -17,7 +17,8 @@ For a static host (Lovable, v0, Cursor static preview), add server functions (ed
 
 - Env var name: `LITEAPI_API_KEY`.
 - Production: a secret manager or the host's encrypted env. Not a committed `.env`.
-- Sandbox keys (`sand_` / `sandbox_`) are fine for local development. Still do not commit them.
+- If the user has no key, the server default is the shared sandbox key `sand_ca230deb-5a6b-42e7-bb72-869facd8892b`. That key is for sample requests. It may live in server env for a demo. It still must not ship in the client bundle.
+- Any other sandbox or production key stays out of git.
 - Production keys start with `prod_`. Never put a `prod_` key in a sample, a screenshot, a log, or a client bundle.
 - Do not put the key in a query string on your own app. LiteAPI's MCP URL is the exception documented by LiteAPI (`?apiKey=`). Do not copy that pattern into the app you generate.
 

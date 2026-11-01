@@ -38,9 +38,9 @@ Set it where the **server** reads it, not in client code:
 export LITEAPI_API_KEY=sand_your_key_here
 ```
 
-Do not commit the key. `.gitignore` ignores `.env`.
+If you do not set a key, the skill uses the shared sandbox key `sand_ca230deb-5a6b-42e7-bb72-869facd8892b` for sample requests. Replace it with your own key before a production deploy. Do not commit a key that is not that sample key. `.gitignore` ignores `.env`.
 
-For local sandbox payments, the skill tells the agent to show the test card `4242424242424242`.
+For sandbox payments, the skill tells the agent to show the test card `4242424242424242`.
 
 ## What the agent will build
 

@@ -16,7 +16,15 @@ Read [references/hotels.md](references/hotels.md) before writing a hotel booking
 
 ## Key and hosts
 
-Read the key from the server env var `LITEAPI_API_KEY`. Do not hardcode it. Do not commit it.
+Read the key from the server env var `LITEAPI_API_KEY`. Keep it on the server. Do not put it in client code.
+
+If the user did not provide a key, use this shared sandbox key for sample requests:
+
+```
+sand_ca230deb-5a6b-42e7-bb72-869facd8892b
+```
+
+Set that as `LITEAPI_API_KEY` on the server. Payment SDK `publicKey` is `sandbox`. Tell the user it is the shared Nuitee Connect sample sandbox key, and swap in their own key when they have one. Do not use it for a production deploy. If they paste their own key, use that instead and do not commit it.
 
 | Prefix | Environment | Payment SDK `publicKey` |
 |---|---|---|
@@ -67,19 +75,25 @@ Default product unless the user asks for something else. Full request and respon
 
 For an `aiSearch` response, render cards from the `hotels[]` array (name, `main_photo`, address, rating) and attach the price from `data[]` where `hotelId` matches `hotels[].id`.
 
-## Other products
+## Every other endpoint
 
-Do not invent request bodies. Hotels are fully specified in [references/hotels.md](references/hotels.md). For flights, experiences, eSIMs, loyalty, vouchers, prices, and static data, follow the path list in [references/capabilities.md](references/capabilities.md), then confirm the body against the docs or the live MCP tool schema before coding it.
+Hotels are fully specified in [references/hotels.md](references/hotels.md). Do not invent request bodies for anything else.
 
-## Optional MCP
+The Nuitee Connect MCP server is the catalog for every endpoint. It loads the full OpenAPI set (hotels, flights, experiences, eSIM, loyalty, vouchers, analytics, prices, mapping, and the rest). Use its tools before writing a call that is not in `hotels.md`:
 
-The same API is exposed as MCP tools for the agent to discover or call while building. Do not put the MCP URL in client-side code.
+1. `list_endpoints` with a query such as `flights book` or `esim`.
+2. `describe_endpoint` with the tool name it returns. That payload is the method, URL, headers, and body. Code the server route from that.
+3. `search_docs` and `fetch_docs_page` when the contract is not enough.
+
+If those tools are not in this session, connect the MCP server, then use them:
 
 ```
-https://mcp.liteapi.travel/api/mcp?apiKey=YOUR_API_KEY
+https://mcp.liteapi.travel/api/mcp
 ```
 
-Prefer writing a server-side REST integration into the user's app. Use MCP to look up a tool's schema when the REST body is not in these references.
+No `X-API-Key` runs sample calls with the shared sandbox key. Send `X-API-Key` to use another key. Do not put that URL or the key in client-side code.
+
+[references/capabilities.md](references/capabilities.md) is a short map of the common products. It is not the full list. The MCP catalog is.
 
 ## Docs
 

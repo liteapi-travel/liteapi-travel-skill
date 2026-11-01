@@ -1,11 +1,8 @@
 # Other LiteAPI capabilities
 
-Hotel search → prebook → pay → book is specified in [hotels.md](hotels.md). This file is the map for everything else.
+Hotel search → prebook → pay → book is specified in [hotels.md](hotels.md). This file is a short map of common products. It is not every endpoint.
 
-Paths below are from the LiteAPI OpenAPI specs the MCP server loads. Do not invent request or response bodies. Before writing a call that is not in `hotels.md`:
-
-1. Open the matching page under https://docs.liteapi.travel/reference/ (endpoint index: https://docs.liteapi.travel/reference/api-endpoints-overview).
-2. Or list tools on the MCP server and read that tool's input schema: `https://mcp.liteapi.travel/api/mcp?apiKey=YOUR_API_KEY`.
+The full catalog is the Nuitee Connect MCP server at `https://mcp.liteapi.travel/api/mcp`. Call `list_endpoints`, then `describe_endpoint`, and code from that contract. No `X-API-Key` uses the shared sandbox key. Do not invent request or response bodies.
 
 Auth is the `X-API-Key` header on every module. Calls still go through your server.
 
